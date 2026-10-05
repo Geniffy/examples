@@ -1,0 +1,42 @@
+# Every example installs and parses against the published packages. Running them needs a Geniffy key,
+# which CI does not have, so they run by hand against a test server before each change.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"   # weekly, so a new SDK release that breaks an example shows up here
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: python
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -r requirements.txt
+      - run: python -m py_compile quickstart.py support_bot.py chat_with_memory.py
+      - run: python -c "from geniffy import Geniffy; from anthropic import Anthropic"
+
+  javascript:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: javascript
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm install
+      - run: for f in *.mjs; do node --check "$f"; done
+      - run: node -e "import('geniffy').then(m => { if (!m.Geniffy) process.exit(1) })"
