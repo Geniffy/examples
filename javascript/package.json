@@ -12,6 +12,7 @@
     "support-bot": "node support-bot.mjs",
     "chat": "node chat-with-memory.mjs",
     "sync-records": "node sync-records.mjs",
+    "sync-folder": "node sync-folder.mjs",
     "user-keys": "node user-keys.mjs"
   },
   "dependencies": {

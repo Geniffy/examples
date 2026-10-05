@@ -18,6 +18,7 @@ in a minute, and forgets what it wrote when it finishes, unless keeping it is th
 | **Support bot** | One memory per customer. The same question gets each customer's own answer, or a plain "nothing stored" | [support_bot.py](python/support_bot.py) | [support-bot.mjs](javascript/support-bot.mjs) |
 | **Chat with memory** | A chat with Claude in your terminal that remembers you between runs | [chat_with_memory.py](python/chat_with_memory.py) | [chat-with-memory.mjs](javascript/chat-with-memory.mjs) |
 | **Sync your records** | Tickets kept in step by their own ids: sent again, only what changed is learned; closed, deleted by id | [sync_records.py](python/sync_records.py) | [sync-records.mjs](javascript/sync-records.mjs) |
+| **Sync a folder** | A folder of policies kept in memory: an edited file teaches only what changed, and a deleted one goes from memory in the same sync | [sync_folder.py](python/sync_folder.py) | [sync-folder.mjs](javascript/sync-folder.mjs) |
 | **Keys for your users** | A key for one user's own app: it reaches only them, can expire, and stops when revoked | [user_keys.py](python/user_keys.py) | [user-keys.mjs](javascript/user-keys.mjs) |
 | **Labels** | Label what comes in by channel and account, then keep recall to one of them | [labels.py](python/labels.py) | [labels.mjs](javascript/labels.mjs) |
 | **A user's data** | A user asks for a copy of what you hold about them, then asks to be forgotten | [user_data.py](python/user_data.py) | [user-data.mjs](javascript/user-data.mjs) |
