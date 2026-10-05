@@ -11,6 +11,7 @@ python support_bot.py          # one memory per customer
 python chat_with_memory.py     # Claude that remembers you between runs; also needs ANTHROPIC_API_KEY
 python sync_records.py         # your own records, kept in step by their own ids
 python user_keys.py            # a key for one user's own app, that reaches only them
+python labels.py               # label what you add, then keep recall to a label
 ```
 
 `chat_with_memory.py` keeps what it learns, so you can quit and come back. `python chat_with_memory.py

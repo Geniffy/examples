@@ -11,6 +11,7 @@ node support-bot.mjs           # one memory per customer
 node chat-with-memory.mjs      # Claude that remembers you between runs; also needs ANTHROPIC_API_KEY
 node sync-records.mjs          # your own records, kept in step by their own ids
 node user-keys.mjs             # a key for one user's own app, that reaches only them
+node labels.mjs                # label what you add, then keep recall to a label
 ```
 
 `chat-with-memory.mjs` keeps what it learns, so you can quit and come back. `node chat-with-memory.mjs
