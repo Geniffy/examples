@@ -1,0 +1,19 @@
+{
+  "name": "geniffy-examples",
+  "private": true,
+  "description": "Runnable examples for Geniffy: give each user of your app a memory.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "quickstart": "node quickstart.mjs",
+    "support-bot": "node support-bot.mjs",
+    "chat": "node chat-with-memory.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "geniffy": "^0.1.0"
+  }
+}
