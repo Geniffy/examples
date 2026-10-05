@@ -12,6 +12,7 @@ python chat_with_memory.py     # Claude that remembers you between runs; also ne
 python sync_records.py         # your own records, kept in step by their own ids
 python user_keys.py            # a key for one user's own app, that reaches only them
 python labels.py               # label what you add, then keep recall to a label
+python user_data.py            # a user's own copy of what you hold, then forgetting them
 ```
 
 `chat_with_memory.py` keeps what it learns, so you can quit and come back. `python chat_with_memory.py
