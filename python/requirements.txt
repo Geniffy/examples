@@ -1,2 +1,2 @@
-geniffy>=0.1.0
+geniffy>=0.2.0
 anthropic>=1.11.0

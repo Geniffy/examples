@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: "3.13"
       - run: python -m pip install -r requirements.txt
-      - run: python -m py_compile quickstart.py support_bot.py chat_with_memory.py
+      - run: python -m py_compile quickstart.py support_bot.py chat_with_memory.py sync_records.py user_keys.py
       - run: python -c "from geniffy import Geniffy; from anthropic import Anthropic"
 
   javascript:

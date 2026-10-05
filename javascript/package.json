@@ -10,10 +10,12 @@
   "scripts": {
     "quickstart": "node quickstart.mjs",
     "support-bot": "node support-bot.mjs",
-    "chat": "node chat-with-memory.mjs"
+    "chat": "node chat-with-memory.mjs",
+    "sync-records": "node sync-records.mjs",
+    "user-keys": "node user-keys.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",
-    "geniffy": "^0.1.0"
+    "geniffy": "^0.2.0"
   }
 }
