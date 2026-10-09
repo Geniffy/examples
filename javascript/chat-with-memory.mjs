@@ -1,7 +1,8 @@
-// Chat with Claude in your terminal, and it remembers you between runs.
+// Chat with Claude in your terminal, and it picks up where you left off between runs.
 //
-// Before each reply, what Geniffy knows that bears on your message goes into Claude's system prompt.
-// After each reply, the exchange goes into your memory, so the next run knows it too.
+// Before each reply, your briefing goes into Claude's system prompt: what happened in earlier chats, the rules
+// you set, and what is known that bears on your message, each line dated. Each turn is saved as you go, into one
+// memory for the whole chat, so the next run knows it too.
 //
 //   export GENIFFY_API_KEY="gnf_live_..."
 //   export ANTHROPIC_API_KEY="sk-ant-..."
@@ -9,6 +10,7 @@
 //   node chat-with-memory.mjs --forget   # forget everything this chat has learned
 import Anthropic from "@anthropic-ai/sdk";
 import { Geniffy } from "geniffy";
+import { randomUUID } from "node:crypto";
 import { createInterface } from "node:readline/promises";
 import { stdin, stdout } from "node:process";
 
@@ -17,12 +19,13 @@ const SPACE = "example_chat"; // in your app: one space per user, such as `user_
 
 const SYSTEM = (memory) => `You are a helpful assistant who remembers this user across conversations.
 
-What you remember that bears on their message, each line with where it came from:
+What you remember: what happened before, the rules they set, and what is known that bears on their message, each
+line dated:
 <memory>
 ${memory}
 </memory>
 
-Use what helps and ignore the rest. If it says nothing is stored, say you don't know rather than guess.`;
+Use what helps and ignore the rest. If it doesn't cover something, say you don't know rather than guess.`;
 
 const geniffy = new Geniffy(); // reads GENIFFY_API_KEY
 const mem = geniffy.space(SPACE);
@@ -34,6 +37,7 @@ if (process.argv.includes("--forget")) {
 }
 
 const claude = new Anthropic(); // reads ANTHROPIC_API_KEY
+const chat = mem.session(`chat-${randomUUID().slice(0, 12)}`, { title: "Chat" }); // this run of the chat: one memory
 const history = [];
 const rl = createInterface({ input: stdin, output: stdout, prompt: "You: " });
 rl.on("SIGINT", () => rl.close()); // Ctrl+C ends the chat
@@ -46,8 +50,8 @@ for await (const line of rl) {
   if (!text) break;
   history.push({ role: "user", content: text });
 
-  // Recall: the memories that bear on this message, written out for the prompt.
-  const system = SYSTEM(await mem.context(text));
+  // Recall: the briefing, with your message as the cue, so what bears on it comes first.
+  const system = SYSTEM((await mem.briefing({ cue: text })) || "Nothing is remembered about this user yet.");
 
   stdout.write("Claude: ");
   const stream = claude.messages.stream({ model: MODEL, max_tokens: 2048, system, messages: history });
@@ -61,8 +65,9 @@ for await (const line of rl) {
     .join("");
   history.push({ role: "assistant", content: said });
 
-  // Remember: add this exchange. It is learned in the background, so the chat never waits on it, and
-  // who said what is kept, so what you say about yourself becomes a memory about you.
-  await mem.memories.add({ messages: history.slice(-2), title: "Chat" });
+  // Remember: only what is new since the last save is sent, into this chat's one memory. It is learned in the
+  // background, so the chat never waits on it, and who said what is kept, so what you say about yourself
+  // becomes a memory about you.
+  await chat.save(history);
   rl.prompt();
 }

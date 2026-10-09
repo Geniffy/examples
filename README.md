@@ -16,7 +16,7 @@ in a minute, and forgets what it wrote when it finishes, unless keeping it is th
 | --- | --- | --- | --- |
 | **Quickstart** | Remember something about one of your users, then recall it three ways: for your prompt, as an answer, and as ranked matches | [quickstart.py](python/quickstart.py) | [quickstart.mjs](javascript/quickstart.mjs) |
 | **Support bot** | One memory per customer. The same question gets each customer's own answer, or a plain "nothing stored" | [support_bot.py](python/support_bot.py) | [support-bot.mjs](javascript/support-bot.mjs) |
-| **Chat with memory** | A chat with Claude in your terminal that remembers you between runs | [chat_with_memory.py](python/chat_with_memory.py) | [chat-with-memory.mjs](javascript/chat-with-memory.mjs) |
+| **Chat with memory** | A chat with Claude in your terminal that picks up where you left off: each reply opens with your briefing, and each turn is saved into one memory for the chat | [chat_with_memory.py](python/chat_with_memory.py) | [chat-with-memory.mjs](javascript/chat-with-memory.mjs) |
 | **Sync your records** | Tickets kept in step by their own ids: sent again, only what changed is learned; closed, deleted by id | [sync_records.py](python/sync_records.py) | [sync-records.mjs](javascript/sync-records.mjs) |
 | **Sync a folder** | A folder of policies kept in memory: an edited file teaches only what changed, and a deleted one goes from memory in the same sync | [sync_folder.py](python/sync_folder.py) | [sync-folder.mjs](javascript/sync-folder.mjs) |
 | **Keys for your users** | A key for one user's own app: it reaches only them, can expire, and stops when revoked | [user_keys.py](python/user_keys.py) | [user-keys.mjs](javascript/user-keys.mjs) |
@@ -64,6 +64,14 @@ context = mem.context(message)                     # 3. before your model answer
 `context()` hands back the memories that bear on the question, one per line, each with where and when it
 was said. When nothing does, it says so in a sentence instead of returning nothing, because a model reads
 an empty block as permission to guess.
+
+An agent, or a chat that keeps going, does the same with two calls of its own, as the chat example does:
+
+```python
+run = mem.session(session_id)                      # 2. its turns, tool calls included, saved into one memory
+system = mem.briefing(project="checkout", cue=task) # 3. where things stand, what is due, the rules, what happened
+run.save(messages)                                  # after every turn: only what is new is sent
+```
 
 ## More
 

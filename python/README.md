@@ -8,7 +8,7 @@ export GENIFFY_API_KEY="gnf_live_..."
 
 python quickstart.py           # remember something, then recall it three ways
 python support_bot.py          # one memory per customer
-python chat_with_memory.py     # Claude that remembers you between runs; also needs ANTHROPIC_API_KEY
+python chat_with_memory.py     # Claude that picks up where you left off; also needs ANTHROPIC_API_KEY
 python sync_records.py         # your own records, kept in step by their own ids
 python user_keys.py            # a key for one user's own app, that reaches only them
 python labels.py               # label what you add, then keep recall to a label
