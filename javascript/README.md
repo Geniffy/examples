@@ -13,6 +13,7 @@ node sync-records.mjs          # your own records, kept in step by their own ids
 node user-keys.mjs             # a key for one user's own app, that reaches only them
 node labels.mjs                # label what you add, then keep recall to a label
 node user-data.mjs             # a user's own copy of what you hold, then forgetting them
+node moved-date.mjs            # a date moved on a later call: the memory holds the new one
 ```
 
 `chat-with-memory.mjs` keeps what it learns, so you can quit and come back. `node chat-with-memory.mjs

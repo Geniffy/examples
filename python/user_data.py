@@ -1,7 +1,8 @@
 """A user asks what your app remembers about them, then asks to be forgotten.
 
-Their copy is everything held for them, current or not, each memory with its status and the sentence it came
-from, and every source. It is written to a file you can hand them. Then their memory is erased, and only theirs.
+Their copy is everything held for them: each memory, current or not, with its status and the sentence it came
+from, every source, and the stories, lessons and promises read from them, with where things stand. It is written
+to a file you can hand them. Then their memory is erased, and only theirs.
 
     python user_data.py
 """

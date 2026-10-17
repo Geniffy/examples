@@ -22,6 +22,8 @@ in a minute, and forgets what it wrote when it finishes, unless keeping it is th
 | **Keys for your users** | A key for one user's own app: it reaches only them, can expire, and stops when revoked | [user_keys.py](python/user_keys.py) | [user-keys.mjs](javascript/user-keys.mjs) |
 | **Labels** | Label what comes in by channel and account, then keep recall to one of them | [labels.py](python/labels.py) | [labels.mjs](javascript/labels.mjs) |
 | **A user's data** | A user asks for a copy of what you hold about them, then asks to be forgotten | [user_data.py](python/user_data.py) | [user-data.mjs](javascript/user-data.mjs) |
+| **A plan that moves** | A launch on 10 December, moved to the 17th on a later call: the memory holds the 17th, and keeps the 10th as history | [moved_date.py](python/moved_date.py) | [moved-date.mjs](javascript/moved-date.mjs) |
+| **Phone agent (Vapi)** | A server that answers each call with the caller's briefing, looks things up mid-call, and saves the call when it ends | [phone_agent.py](python/phone_agent.py) | Python only |
 
 ## Run them
 
